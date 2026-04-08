@@ -18,3 +18,7 @@ for i, s in enumerate(result["subtasks"]):
 print("\nResults:")
 for i, r in enumerate(result["results"]):
     print(f"\n  Result {i+1}:\n  {r}")
+
+
+print("\nFinal Report:")
+print(result["final_report"])

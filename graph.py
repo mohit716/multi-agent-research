@@ -1,3 +1,4 @@
+from agents.supervisor import run_supervisor
 from agents.executor import run_executor
 from agents.planner import run_planner
 from langgraph.graph import StateGraph, END
@@ -40,8 +41,18 @@ def executor_node(state: ResearchState) -> ResearchState:
     return {**state, "results": results}
 
 def supervisor_node(state: ResearchState) -> ResearchState:
-    # will review and compile report
-    return state
+    """
+    Takes topic + all results from state.
+    Compiles into final report.
+    Stores report back in state.
+    """
+    print(f"🟢 Supervisor compiling final report...")
+
+    report = run_supervisor(state["topic"], state["results"])
+
+    print(f"🟢 Supervisor done.")
+
+    return {**state, "final_report": report}
 
 def human_checkpoint(state: ResearchState) -> ResearchState:
     # will pause for approval
